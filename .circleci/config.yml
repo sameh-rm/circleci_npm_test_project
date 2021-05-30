@@ -15,9 +15,9 @@ jobs:
       - checkout
       - run: npm i
       - save_cache:
-        key: "npm-packages"
-        paths:
-          - /node_modules
+          key: "npm-packages"
+          paths:
+            - /node_modules
       - run: npm run build
   test:
     # loads docker image from anchors
