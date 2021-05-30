@@ -1,0 +1,21 @@
+{
+  "name": "testing-node-circlecli",
+  "version": "1.0.0",
+  "description": "udacity exercise (automating app steps building, testing, analyzing)",
+  "main": "src/index.js",
+  "author": "Sameh Ramadan",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "@types/jest": "^26.0.23",
+    "jest": "^27.0.3"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest",
+    "build": "npx babel src --out-dir build",
+    "analyze": "npm audit"
+  }
+}

@@ -1,0 +1,55 @@
+version: 2.1
+
+# anchors
+defaultDockerImage: &defaultDockerImage
+  docker:
+    - image: circleci/node:13.8.0
+
+# list of jobs to call later
+jobs:
+  build: # job name
+    # loads docker image from anchors
+    <<: *defaultDockerImage
+
+    steps:
+      - checkout
+      - run: npm i
+      - save_cache:
+        key: "npm-packages"
+        paths:
+          - /node_modules
+      - run: npm run build
+  test:
+    # loads docker image from anchors
+    <<: *defaultDockerImage
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - "npm-packages"
+      - run: npm i
+      - run: npm run test
+
+  analyze:
+    # loads docker image from anchors
+    <<: *defaultDockerImage
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - "npm-packages"
+      - run: npm i
+      - run: npm audit
+
+workflows:
+  automate_npm_project:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - analyze:
+          requires:
+            - test
